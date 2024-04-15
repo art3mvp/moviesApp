@@ -21,6 +21,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     // adapter is only for showing the data.
     private List<Movie> movies = new ArrayList<>();
     private OnReachEndListener onReachEndListener;
+    private OnMovieClickListener onMovieClickListener;
+
+    public void setOnMovieClickListener(OnMovieClickListener onMovieClickListener) {
+        this.onMovieClickListener = onMovieClickListener;
+    }
 
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         this.onReachEndListener = onReachEndListener;
@@ -50,6 +55,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         if (position >= movies.size() - 10 && onReachEndListener != null) {
             onReachEndListener.onReachEnd();
         }
+
+        holder.imageViewPoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onMovieClickListener != null) {
+                    onMovieClickListener.onMovieCLick(movie);
+                }
+            }
+        });
 
         //sometimes there is no poster on movies with bad ratings
         if (movie.getPoster() != null) {
@@ -88,6 +102,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void onReachEnd();
     }
 
+    interface OnMovieClickListener {
+        void onMovieCLick(Movie movie);
+    }
+
     static class MovieViewHolder extends RecyclerView.ViewHolder {
     //static when we don't use variables of methods of parent
 
@@ -99,4 +117,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             textViewRating = itemView.findViewById(R.id.textViewRating);
         }
     }
+
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieDetailActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewDetailPoster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/movies_poster"/>
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imageViewDetailPoster"
+            android:layout_margin="16dp"
+            android:textAlignment="viewStart"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/textViewYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            android:layout_margin="16dp"
+            android:textAlignment="viewStart"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="@android:color/holo_orange_light"
+            tools:text="1984"/>
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textViewYear"
+            android:layout_margin="16dp"
+            android:textAlignment="viewStart"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:background="@android:color/darker_gray"
+            tools:text="some movie description..."/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

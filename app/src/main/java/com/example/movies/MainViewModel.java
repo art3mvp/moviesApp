@@ -27,6 +27,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public MainViewModel(@NonNull Application application) {
         super(application);
+        loadMovies();
     }
 
     public LiveData<Boolean> getIsLoading() {
@@ -39,6 +40,11 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void loadMovies() {
+        Boolean loading = isLoading.getValue();
+        if (loading != null && loading) {
+            //load start after other ends
+            return;
+        }
         Disposable disposable = ApiFactory.apiService.loadMovies(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,6 +58,7 @@ public class MainViewModel extends AndroidViewModel {
                     @Override
                     public void run() throws Throwable {
                         isLoading.setValue(false);
+                        Log.d(TAG, "Loaded page: " + page);
                     }
                 })
                 .subscribe(new Consumer<MovieResponse>() {

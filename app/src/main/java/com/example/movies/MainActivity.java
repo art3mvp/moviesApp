@@ -1,6 +1,7 @@
 package com.example.movies;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,14 +46,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        String apiKey = BuildConfig.API_KEY;
-
-        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
-        progressBar = findViewById(R.id.progressBar);
+        initViews();
         adapter = new MovieAdapter();
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerViewMovies.setAdapter(adapter);
-
 
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -62,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setMovies(movies);
             }
         });
-        viewModel.loadMovies();
         adapter.setOnReachEndListener(new MovieAdapter.OnReachEndListener() {
             @Override
             public void onReachEnd() {
@@ -79,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        adapter.setOnMovieClickListener(new MovieAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieCLick(Movie movie) {
+                Intent intent = MovieDetailActivity.newIntent(MainActivity.this, movie);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initViews() {
+        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        progressBar = findViewById(R.id.progressBar);
     }
 
 }
